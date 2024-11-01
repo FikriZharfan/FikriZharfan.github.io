@@ -89,7 +89,7 @@
 
             <section id="hero" class="text-center text-white">
                          <div data-aos="flip-left" data-aos-duration="3000">
-                          <img src="pan1.png" class="rounded-circle" alt="..." style="width: 200px;">
+                          <img src="img/pan2.png" class="rounded-circle" alt="..." style="width: 200px;">
                         </div>
                         <br>
                         <br>
@@ -177,7 +177,7 @@
                     <div class="alert alert-secondary alert-dismissible fade show d-none my-alert" role="alert">
                       <strong>Terimakasih</strong> Pesan anda sudah kami terima</div>
 
-                    <form action="" name="contact-form">
+                    <form action="" action="mailto:daryantofikri52552@gmail.com" method="get" name="contact-form">
                       <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="nama" name="nama" placeholder="masukan nama lengkap">
@@ -193,10 +193,7 @@
                       <br>
                       <button class="btn btn-secondary btn-kirim" type="submit">Kirim</button>
 
-                      <button class="btn btn-secondary btn-loading d-none" type="button" disabled>
-                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                      </button>
+                      
                     </form>
                     <br>
                     <br>
@@ -260,31 +257,7 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- form contact -->
-    <script>
-      const scriptURL = 'https://script.google.com/macros/s/AKfycby-_A0x4TTmwGNHVJIweH0gQeQADddaa2-IdD8a5ZDhgJGT1mthrqwQdC1fVEzx7jfKIw/exec'
-      const form = document.forms['contact-form']
-      const btnKirim = document.querySelector('.btn-kirim');
-      const btnLoading = document.querySelector('.btn-loading');
-      const myAlert = document.querySelector('.my-alert');
     
-      form.addEventListener('submit', e => {
-        e.preventDefault()
-        btnLoading.classList.toggle('d-none');
-        btnKirim.classList.toggle('d-none');
-        
-
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => {
-            btnLoading.classList.toggle('d-none');
-            btnKirim.classList.toggle('d-none');
-            // alert
-            myAlert.classList.toggle('d-none');
-            form.reset();
-            console.log('Success!', response)
-        })
-          .catch(error => console.error('Error!', error.message))
-      })
-    </script>
     <!-- Aos -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
