@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Aos -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- icon -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function(){
+          emailjs.init("ODhRwWY1qk3f2jeJS"); // Ganti dengan user_id Anda dari EmailJS
+      })();
+
+      function sendEmail(event) {
+          event.preventDefault();
+          const form = event.target;
+          const alertEl = document.querySelector('.my-alert');
+          if(alertEl){ alertEl.classList.add('d-none'); }
+
+          console.log('Submitting form...', form);
+          console.log('emailjs present?', !!window.emailjs, 'type=', typeof window.emailjs);
+          if(window.emailjs){ console.log('emailjs keys:', Object.keys(window.emailjs)); }
+
+          try{
+            emailjs.sendForm("service_u7jttpb", "template_9sm0cbs", form)
+              .then(function(response){
+                  console.log('EmailJS response:', response);
+                  if(alertEl){
+                    alertEl.classList.remove('d-none');
+                    alertEl.classList.remove('alert-danger');
+                    alertEl.classList.add('alert-success');
+                    alertEl.innerHTML = '<strong>Terimakasih</strong> Pesan anda sudah kami terima';
+                  } else {
+                    alert('Email sent successfully!');
+                  }
+              }, function(err){
+                  console.error('EmailJS rejected promise:', err);
+                  if(alertEl){
+                    alertEl.classList.remove('d-none');
+                    alertEl.classList.remove('alert-success');
+                    alertEl.classList.add('alert-danger');
+                    var text = err && (err.text || err.message) ? (err.text || err.message) : JSON.stringify(err);
+                    alertEl.innerHTML = '<strong>Gagal mengirim:</strong> '+ text;
+                  }
+                  alert('Failed to send email. Cek console untuk detail.');
+              }).catch(function(ex){
+                console.error('EmailJS sendForm threw:', ex);
+                if(alertEl){ alertEl.classList.remove('d-none'); alertEl.classList.add('alert-danger'); alertEl.innerHTML = '<strong>Error:</strong> '+ (ex.message || JSON.stringify(ex)); }
+                alert('Failed to send email (exception). Cek console.');
+              });
+          }catch(e){
+            console.error('sendEmail exception:', e);
+            if(alertEl){ alertEl.classList.remove('d-none'); alertEl.classList.add('alert-danger'); alertEl.innerHTML = '<strong>Exception:</strong> '+ (e.message || JSON.stringify(e)); }
+            alert('Failed to send email (exception). Cek console.');
+          }
+      }
+  </script>
+    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="LineWaves.css">
+
+    <title>My Portofolio</title>
+
+  </head>
+  <body>
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="#">Fikri Zharfan</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center position-relative">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#project">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- tutup navbar -->
+
+<section id="hero">
+  <div id="line-waves-root"></div>
+  <div class="hero-inner">
+    <div class="p-photo" data-aos="zoom-in">
+      <img src="img/pan2.png" alt="Fikri Zharfan" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <h1>I'm Fikri Zharfan</h1>
+    <div class="lead">Developer & Designer — building elegant, accessible web experiences.</div>
+    <div class="typing" id="typing"></div>
+    <div class="actions">
+      <a class="btn btn-light" href="CV_FikriZharfan.pdf" download class="btn-download">Download CV</a>
+      <a class="btn btn-outline-light" href="#contact">Contact Me</a>
+    </div>
+    <div class="socials">
+      <a href="https://github.com/FikriZharfan" class="text-white"><i class="fab fa-github fa-2x"></i></a>
+      <a href="https://wa.me/6281319162691" class="text-white"><i class="fab fa-whatsapp fa-2x"></i></a>
+      <a href="https://www.instagram.com/zharfan.dr/?hl=en" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-5">
+        <div class="about-card">
+          <h2>About Me</h2>
+          <p>I live in Depok, Indonesia. I'm a web developer and UI designer creating web apps, logos, and interfaces focused on usability and performance.</p>
+          <div class="about-list">
+            <div><div class="about-keys">Role</div><div>Frontend Developer</div></div>
+            <div><div class="about-keys">Experience</div><div>2+ years</div></div>
+            <div><div class="about-keys">Location</div><div>Depok, Indonesia</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="about-card">
+          <h3>Skills & Technologies</h3>
+          <p>HTML, CSS, JavaScript, Bootstrap, PHP, Laravel, Git, Figma.</p>
+          <p>I'm focused on building maintainable code and clean designs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <h2 class="text-center mb-4">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card" data-aos="fade-up"><img src="img/logohtml.png" alt="HTML"><div>HTML</div></div>
+      <div class="skill-card" data-aos="fade-up"><img src="img/lodocss.png" alt="CSS"><div>CSS</div></div>
+      <div class="skill-card" data-aos="fade-up"><img src="img/logophp.png" alt="PHP"><div>PHP</div></div>
+      <div class="skill-card" data-aos="fade-up"><img src="img/logolaravel.png" alt="Laravel"><div>Laravel</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="project">
+  <div class="container">
+    <h2 class="text-center mb-4">Projects</h2>
+    <div class="row g-4">
+      <div class="col-md-6" data-aos="fade-up">
+        <div class="project-card">
+          <img src="img/tiketing.png" alt="Tiketing">
+          <div class="card-body">
+            <h5>Web Tiketing (Customer Service)</h5>
+            <p>Ticketing system built with PHP/Laravel, responsive UI and admin panel.</p>
+            <div class="d-flex gap-2">
+              <a href="https://github.com/FikriZharfan/Tiketing" class="btn btn-outline-light btn-sm">Github</a>
+              <a href="#" class="btn btn-light btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2 class="text-center mb-4">Contact Me</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="glass-card">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <p><strong>Get in touch</strong><br>Email: daryantofikri52552@gmail.com<br>Phone: +6281319162691</p>
+              <div class="mt-3 socials">
+                <a href="#" class="text-white me-2"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="alert alert-secondary d-none my-alert" role="alert"></div>
+              <form onsubmit="sendToSheet(event)" name="contact-form">
+                <div class="mb-2"><label class="form-label">Nama</label><input class="form-control" name="nama" required></div>
+                <div class="mb-2"><label class="form-label">Email</label><input class="form-control" name="email" type="email" required></div>
+                <div class="mb-2"><label class="form-label">Pesan</label><textarea class="form-control" name="pesan" rows="3" required></textarea></div>
+                <div class="text-end"><button class="btn btn-kirim" type="submit"><span class="btn-text">Send</span><span class="spinner-border spinner-border-sm d-none btn-spinner" role="status" aria-hidden="true"></span></button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <img src="img/logo-pan.png" alt="logo" style="max-width:140px;opacity:0.95">
+      </div>
+      <div class="col-md-4 text-center">
+        <div>&copy; 2026 Fikri Zharfan</div>
+      </div>
+      <div class="col-md-4 text-end">
+        <a href="#" class="me-2 text-muted">Instagram</a>
+        <a href="#" class="me-2 text-muted">Github</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="fixed-bottom p-3" style="left:20px;bottom:20px;position:fixed">
+  <a href="https://wa.me/6281319162691" class="btn btn-light rounded-circle" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center"><i class="fab fa-whatsapp"></i></a>
+</div>
+  
+          
+
+    
+    <!-- tilt js -->
+    <script type="text/javascript" src="tilt.min.js"></script>
+    <script>
+      try{
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), { max: 15, speed: 400, glare: true, "max-glare": 0.2 });
+      }catch(e){console.log('Tilt init failed',e)}
+    </script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- form contact -->
+    
+    <!-- Aos -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script type="module">
+      import LineWaves from './LineWaves.js';
+
+      const rootNode = document.getElementById('line-waves-root');
+      if (rootNode) {
+        LineWaves(rootNode, {
+          speed: 0.6,
+          innerLineCount: 24,
+          outerLineCount: 44,
+          warpIntensity: 1.6,
+          rotation: -36,
+          edgeFadeWidth: 0.15,
+          colorCycleSpeed: 1.8,
+          brightness: 1.0,
+          color1: '#3b82f6',
+          color2: '#8b5cf6',
+          color3: '#38bdf8',
+          enableMouseInteraction: true,
+          mouseInfluence: 3.5
+        });
+      }
+    </script>
+    <script>
+      // Replace with your deployed Apps Script Web App URL
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-_A0x4TTmwGNHVJIweH0gQeQADddaa2-IdD8a5ZDhgJGT1mthrqwQdC1fVEzx7jfKIw/exec";
+
+      async function sendToSheet(event){
+        event.preventDefault();
+        const form = event.target;
+        const alertEl = document.querySelector('.my-alert');
+        if(alertEl){ alertEl.classList.add('d-none'); }
+
+        if(!APPS_SCRIPT_URL){
+          alert('APPS_SCRIPT_URL kosong. Tambahkan URL Web App Apps Script Anda di kode.');
+          return;
+        }
+
+        const formData = new FormData(form);
+
+        // UI: show loading
+        const submitBtn = form.querySelector('.btn-kirim');
+        const spinner = submitBtn.querySelector('.btn-spinner');
+        const btnText = submitBtn.querySelector('.btn-text');
+        submitBtn.disabled = true;
+        if(spinner) spinner.classList.remove('d-none');
+        if(btnText) btnText.textContent = 'Mengirim...';
+
+        try{
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+          });
+          let text = '';
+          try{ text = await res.text(); }catch(e){ text = ''; }
+          let json = {};
+          try{ json = text ? JSON.parse(text) : {}; }catch(e){ json = { message: text }; }
+
+          if(!res.ok){
+            const msg = json.message || text || (res.status + ' ' + res.statusText);
+            throw new Error('HTTP '+res.status+' '+res.statusText+' -- '+ msg);
+          }
+
+          if(json.result === 'success' || json.status === 'success'){
+            if(alertEl){ alertEl.classList.remove('d-none'); alertEl.classList.remove('alert-danger'); alertEl.classList.add('alert-success'); alertEl.innerHTML = '<strong>Terimakasih</strong> Pesan anda sudah kami terima'; }
+            form.reset();
+          } else {
+            const msg = json.message || json.error || JSON.stringify(json);
+            throw new Error(msg || 'Unknown error from Apps Script');
+          }
+        }catch(err){
+          console.error('sendToSheet error:', err);
+          if(alertEl){ alertEl.classList.remove('d-none'); alertEl.classList.remove('alert-success'); alertEl.classList.add('alert-danger'); alertEl.innerHTML = '<strong>Gagal mengirim ke Sheets:</strong> '+ (err.message || JSON.stringify(err)); }
+        } finally {
+          // restore UI
+          submitBtn.disabled = false;
+          if(spinner) spinner.classList.add('d-none');
+          if(btnText) btnText.textContent = 'Kirim';
+        }
+      }
+    </script>
+  </body>
+</html>
